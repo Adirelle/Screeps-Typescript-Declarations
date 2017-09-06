@@ -2,64 +2,75 @@
  * This file is Screeps API description file.
  * This might need some updates when Screeps publishes new features or changes it's existing API
  */
-declare const OK: 0;
-declare const ERR_NOT_OWNER: -1;
-declare const ERR_NO_PATH: -2;
-declare const ERR_NAME_EXISTS: -3;
-declare const ERR_BUSY: -4;
-declare const ERR_NOT_FOUND: -5;
-declare const ERR_NOT_ENOUGH_RESOURCES: -6;
-declare const ERR_NOT_ENOUGH_ENERGY: -6;
-declare const ERR_INVALID_TARGET: -7;
-declare const ERR_FULL: -8;
-declare const ERR_NOT_IN_RANGE: -9;
-declare const ERR_INVALID_ARGS: -10;
-declare const ERR_TIRED: -11;
-declare const ERR_NO_BODYPART: -12;
-declare const ERR_NOT_ENOUGH_EXTENSIONS: -6;
-declare const ERR_RCL_NOT_ENOUGH: -14;
-declare const ERR_GCL_NOT_ENOUGH: -15;
-declare const FIND_EXIT_TOP: 1;
-declare const FIND_EXIT_RIGHT: 3;
-declare const FIND_EXIT_BOTTOM: 5;
-declare const FIND_EXIT_LEFT: 7;
-declare const FIND_EXIT: 10;
-declare const FIND_CREEPS: 101;
-declare const FIND_MY_CREEPS: 102;
-declare const FIND_HOSTILE_CREEPS: 103;
-declare const FIND_SOURCES_ACTIVE: 104;
-declare const FIND_SOURCES: 105;
-declare const FIND_DROPPED_RESOURCES: 106;
-declare const FIND_DROPPED_ENERGY: 106;
-declare const FIND_STRUCTURES: 107;
-declare const FIND_MY_STRUCTURES: 108;
-declare const FIND_HOSTILE_STRUCTURES: 109;
-declare const FIND_FLAGS: 110;
-declare const FIND_CONSTRUCTION_SITES: 111;
-declare const FIND_MY_SPAWNS: 112;
-declare const FIND_HOSTILE_SPAWNS: 113;
-declare const FIND_MY_CONSTRUCTION_SITES: 114;
-declare const FIND_HOSTILE_CONSTRUCTION_SITES: 115;
-declare const FIND_MINERALS: 116;
-declare const FIND_NUKES: 117;
-declare const TOP: 1;
-declare const TOP_RIGHT: 2;
-declare const RIGHT: 3;
-declare const BOTTOM_RIGHT: 4;
-declare const BOTTOM: 5;
-declare const BOTTOM_LEFT: 6;
-declare const LEFT: 7;
-declare const TOP_LEFT: 8;
-declare const COLOR_RED: 1;
-declare const COLOR_PURPLE: 2;
-declare const COLOR_BLUE: 3;
-declare const COLOR_CYAN: 4;
-declare const COLOR_GREEN: 5;
-declare const COLOR_YELLOW: 6;
-declare const COLOR_ORANGE: 7;
-declare const COLOR_BROWN: 8;
-declare const COLOR_GREY: 9;
-declare const COLOR_WHITE: 10;
+declare const enum SuccessCode {
+    OK = 0,
+}
+declare const enum ErrorCode {
+    NOT_OWNER = -1,
+    NO_PATH = -2,
+    NAME_EXISTS = -3,
+    BUSY = -4,
+    NOT_FOUND = -5,
+    NOT_ENOUGH_RESOURCES = -6,
+    NOT_ENOUGH_ENERGY = -6,
+    INVALID_TARGET = -7,
+    FULL = -8,
+    NOT_IN_RANGE = -9,
+    INVALID_ARGS = -10,
+    TIRED = -11,
+    NO_BODYPART = -12,
+    NOT_ENOUGH_EXTENSIONS = -6,
+    RCL_NOT_ENOUGH = -14,
+    GCL_NOT_ENOUGH = -15,
+}
+declare type ResultCode = SuccessCode | ErrorCode;
+declare const enum FindQuery {
+    EXIT_TOP = 1,
+    EXIT_RIGHT = 3,
+    EXIT_BOTTOM = 5,
+    EXIT_LEFT = 7,
+    EXIT = 10,
+    CREEPS = 101,
+    MY_CREEPS = 102,
+    HOSTILE_CREEPS = 103,
+    SOURCES_ACTIVE = 104,
+    SOURCES = 105,
+    DROPPED_RESOURCES = 106,
+    DROPPED_ENERGY = 106,
+    STRUCTURES = 107,
+    MY_STRUCTURES = 108,
+    HOSTILE_STRUCTURES = 109,
+    FLAGS = 110,
+    CONSTRUCTION_SITES = 111,
+    MY_SPAWNS = 112,
+    HOSTILE_SPAWNS = 113,
+    MY_CONSTRUCTION_SITES = 114,
+    HOSTILE_CONSTRUCTION_SITES = 115,
+    MINERALS = 116,
+    NUKES = 117,
+}
+declare const enum Direction {
+    TOP = 1,
+    TOP_RIGHT = 2,
+    RIGHT = 3,
+    BOTTOM_RIGHT = 4,
+    BOTTOM = 5,
+    BOTTOM_LEFT = 6,
+    LEFT = 7,
+    TOP_LEFT = 8,
+}
+declare const enum ColorCode {
+    RED = 1,
+    PURPLE = 2,
+    BLUE = 3,
+    CYAN = 4,
+    GREEN = 5,
+    YELLOW = 6,
+    ORANGE = 7,
+    BROWN = 8,
+    GREY = 9,
+    WHITE = 10,
+}
 declare const COLORS_ALL: number[];
 declare const CREEP_SPAWN_TIME: 3;
 declare const CREEP_LIFE_TIME: 1500;
@@ -136,14 +147,16 @@ declare const RANGED_ATTACK_POWER: 10;
 declare const HEAL_POWER: 12;
 declare const RANGED_HEAL_POWER: 4;
 declare const DISMANTLE_COST: 0.005;
-declare const MOVE: "move";
-declare const WORK: "work";
-declare const CARRY: "carry";
-declare const ATTACK: "attack";
-declare const RANGED_ATTACK: "ranged_attack";
-declare const TOUGH: "tough";
-declare const HEAL: "heal";
-declare const CLAIM: "claim";
+declare const enum BodyPartType {
+    MOVE = "move",
+    WORK = "work",
+    CARRY = "carry",
+    ATTACK = "attack",
+    RANGED_ATTACK = "ranged_attack",
+    TOUGH = "tough",
+    HEAL = "heal",
+    CLAIM = "claim",
+}
 declare const CONSTRUCTION_COST: {
     spawn: 15000;
     extension: 3000;
@@ -162,68 +175,72 @@ declare const CONSTRUCTION_COST: {
     nuker: 100000;
 };
 declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
-declare const STRUCTURE_EXTENSION: "extension";
-declare const STRUCTURE_RAMPART: "rampart";
-declare const STRUCTURE_ROAD: "road";
-declare const STRUCTURE_SPAWN: "spawn";
-declare const STRUCTURE_LINK: "link";
-declare const STRUCTURE_WALL: "wall";
-declare const STRUCTURE_KEEPER_LAIR: "keeperLair";
-declare const STRUCTURE_CONTROLLER: "controller";
-declare const STRUCTURE_STORAGE: "storage";
-declare const STRUCTURE_TOWER: "tower";
-declare const STRUCTURE_OBSERVER: "observer";
-declare const STRUCTURE_POWER_BANK: "powerBank";
-declare const STRUCTURE_POWER_SPAWN: "powerSpawn";
-declare const STRUCTURE_EXTRACTOR: "extractor";
-declare const STRUCTURE_LAB: "lab";
-declare const STRUCTURE_TERMINAL: "terminal";
-declare const STRUCTURE_CONTAINER: "container";
-declare const STRUCTURE_NUKER: "nuker";
-declare const STRUCTURE_PORTAL: "portal";
-declare const RESOURCE_ENERGY: "energy";
-declare const RESOURCE_POWER: "power";
-declare const RESOURCE_UTRIUM: "U";
-declare const RESOURCE_LEMERGIUM: "L";
-declare const RESOURCE_KEANIUM: "K";
-declare const RESOURCE_GHODIUM: "G";
-declare const RESOURCE_ZYNTHIUM: "Z";
-declare const RESOURCE_OXYGEN: "O";
-declare const RESOURCE_HYDROGEN: "H";
-declare const RESOURCE_CATALYST: "X";
-declare const RESOURCE_HYDROXIDE: "OH";
-declare const RESOURCE_ZYNTHIUM_KEANITE: "ZK";
-declare const RESOURCE_UTRIUM_LEMERGITE: "UL";
-declare const RESOURCE_UTRIUM_HYDRIDE: "UH";
-declare const RESOURCE_UTRIUM_OXIDE: "UO";
-declare const RESOURCE_KEANIUM_HYDRIDE: "KH";
-declare const RESOURCE_KEANIUM_OXIDE: "KO";
-declare const RESOURCE_LEMERGIUM_HYDRIDE: "LH";
-declare const RESOURCE_LEMERGIUM_OXIDE: "LO";
-declare const RESOURCE_ZYNTHIUM_HYDRIDE: "ZH";
-declare const RESOURCE_ZYNTHIUM_OXIDE: "ZO";
-declare const RESOURCE_GHODIUM_HYDRIDE: "GH";
-declare const RESOURCE_GHODIUM_OXIDE: "GO";
-declare const RESOURCE_UTRIUM_ACID: "UH2O";
-declare const RESOURCE_UTRIUM_ALKALIDE: "UHO2";
-declare const RESOURCE_KEANIUM_ACID: "KH2O";
-declare const RESOURCE_KEANIUM_ALKALIDE: "KHO2";
-declare const RESOURCE_LEMERGIUM_ACID: "LH2O";
-declare const RESOURCE_LEMERGIUM_ALKALIDE: "LHO2";
-declare const RESOURCE_ZYNTHIUM_ACID: "ZH2O";
-declare const RESOURCE_ZYNTHIUM_ALKALIDE: "ZHO2";
-declare const RESOURCE_GHODIUM_ACID: "GH2O";
-declare const RESOURCE_GHODIUM_ALKALIDE: "GHO2";
-declare const RESOURCE_CATALYZED_UTRIUM_ACID: "XUH2O";
-declare const RESOURCE_CATALYZED_UTRIUM_ALKALIDE: "XUHO2";
-declare const RESOURCE_CATALYZED_KEANIUM_ACID: "XKH2O";
-declare const RESOURCE_CATALYZED_KEANIUM_ALKALIDE: "XKHO2";
-declare const RESOURCE_CATALYZED_LEMERGIUM_ACID: "XLH2O";
-declare const RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE: "XLHO2";
-declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: "XZH2O";
-declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "ZXHO2";
-declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
-declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
+declare const enum StructureType {
+    EXTENSION = "extension",
+    RAMPART = "rampart",
+    ROAD = "road",
+    SPAWN = "spawn",
+    LINK = "link",
+    WALL = "wall",
+    KEEPER_LAIR = "keeperLair",
+    CONTROLLER = "controller",
+    STORAGE = "storage",
+    TOWER = "tower",
+    OBSERVER = "observer",
+    POWER_BANK = "powerBank",
+    POWER_SPAWN = "powerSpawn",
+    EXTRACTOR = "extractor",
+    LAB = "lab",
+    TERMINAL = "terminal",
+    CONTAINER = "container",
+    NUKER = "nuker",
+    PORTAL = "portal",
+}
+declare const enum ResourceType {
+    ENERGY = "energy",
+    POWER = "power",
+    UTRIUM = "U",
+    LEMERGIUM = "L",
+    KEANIUM = "K",
+    GHODIUM = "G",
+    ZYNTHIUM = "Z",
+    OXYGEN = "O",
+    HYDROGEN = "H",
+    CATALYST = "X",
+    HYDROXIDE = "OH",
+    ZYNTHIUM_KEANITE = "ZK",
+    UTRIUM_LEMERGITE = "UL",
+    UTRIUM_HYDRIDE = "UH",
+    UTRIUM_OXIDE = "UO",
+    KEANIUM_HYDRIDE = "KH",
+    KEANIUM_OXIDE = "KO",
+    LEMERGIUM_HYDRIDE = "LH",
+    LEMERGIUM_OXIDE = "LO",
+    ZYNTHIUM_HYDRIDE = "ZH",
+    ZYNTHIUM_OXIDE = "ZO",
+    GHODIUM_HYDRIDE = "GH",
+    GHODIUM_OXIDE = "GO",
+    UTRIUM_ACID = "UH2O",
+    UTRIUM_ALKALIDE = "UHO2",
+    KEANIUM_ACID = "KH2O",
+    KEANIUM_ALKALIDE = "KHO2",
+    LEMERGIUM_ACID = "LH2O",
+    LEMERGIUM_ALKALIDE = "LHO2",
+    ZYNTHIUM_ACID = "ZH2O",
+    ZYNTHIUM_ALKALIDE = "ZHO2",
+    GHODIUM_ACID = "GH2O",
+    GHODIUM_ALKALIDE = "GHO2",
+    CATALYZED_UTRIUM_ACID = "XUH2O",
+    CATALYZED_UTRIUM_ALKALIDE = "XUHO2",
+    CATALYZED_KEANIUM_ACID = "XKH2O",
+    CATALYZED_KEANIUM_ALKALIDE = "XKHO2",
+    CATALYZED_LEMERGIUM_ACID = "XLH2O",
+    CATALYZED_LEMERGIUM_ALKALIDE = "XLHO2",
+    CATALYZED_ZYNTHIUM_ACID = "XZH2O",
+    CATALYZED_ZYNTHIUM_ALKALIDE = "ZXHO2",
+    CATALYZED_GHODIUM_ACID = "XGH2O",
+    CATALYZED_GHODIUM_ALKALIDE = "XGHO2",
+}
 declare const RESOURCES_ALL: string[];
 declare const SUBSCRIPTION_TOKEN: string;
 declare const CONTROLLER_LEVELS: {
@@ -344,18 +361,22 @@ declare const BOOSTS: {
         };
     };
 };
-declare const LOOK_CREEPS: "creep";
-declare const LOOK_ENERGY: "energy";
-declare const LOOK_RESOURCES: "resource";
-declare const LOOK_SOURCES: "source";
-declare const LOOK_MINERALS: "mineral";
-declare const LOOK_STRUCTURES: "structure";
-declare const LOOK_FLAGS: "flag";
-declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
-declare const LOOK_NUKES: "nuke";
-declare const LOOK_TERRAIN: "terrain";
-declare const ORDER_SELL: "sell";
-declare const ORDER_BUY: "buy";
+declare const enum LookQuery {
+    CREEPS = "creep",
+    ENERGY = "energy",
+    RESOURCES = "resource",
+    SOURCES = "source",
+    MINERALS = "mineral",
+    STRUCTURES = "structure",
+    FLAGS = "flag",
+    CONSTRUCTION_SITES = "constructionSite",
+    NUKES = "nuke",
+    TERRAIN = "terrain",
+}
+declare const enum OrderType {
+    SELL = "sell",
+    BUY = "buy",
+}
 /**
  * A site of a structure which is currently under construction.
  */
@@ -384,12 +405,12 @@ interface ConstructionSite extends RoomObject {
     /**
      * One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      */
-    structureType: string;
+    structureType: StructureType;
     /**
      * Remove the construction site.
      * @returns Result Code: OK, ERR_NOT_OWNER
      */
-    remove(): number;
+    remove(): ResultCode;
 }
 interface ConstructionSiteConstructor extends _Constructor<ConstructionSite>, _ConstructorById<ConstructionSite> {
 }
@@ -489,79 +510,79 @@ interface Creep extends RoomObject {
      * Attack another creep or structure in a short-ranged attack. Needs the ATTACK body part. If the target is inside a rampart, then the rampart is attacked instead. The target has to be at adjacent square to the creep. If the target is a creep with ATTACK body parts and is not inside a rampart, it will automatically hit back at the attacker.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
-    attack(target: Creep | Structure): number;
+    attack(target: Creep | Structure): ResultCode;
     /**
      * Decreases the controller's downgrade or reservation timer for 1 tick per every 5 CLAIM body parts (so the creep must have at least 5xCLAIM). The controller under attack cannot be upgraded for the next 1,000 ticks. The target has to be at adjacent square to the creep.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
-    attackController(target: Controller): number;
+    attackController(target: Controller): ResultCode;
     /**
      * Build a structure at the target construction site using carried energy. Needs WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_RCL_NOT_ENOUGH
      */
-    build(target: ConstructionSite): number;
+    build(target: ConstructionSite): ResultCode;
     /**
      * Cancel the order given during the current game tick.
      * @param methodName The name of a creep's method to be cancelled.
      * @returns Result Code: OK, ERR_NOT_FOUND
      */
-    cancelOrder(methodName: string): number;
+    cancelOrder(methodName: string): ResultCode;
     /**
      * Requires the CLAIM body part. If applied to a neutral controller, claims it under your control. If applied to a hostile controller, decreases its downgrade or reservation timer depending on the CLAIM body parts count. The target has to be at adjacent square to the creep.
      * @param target The target controller object.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_FULL, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_GCL_NOT_ENOUGH
      */
-    claimController(target: Controller): number;
+    claimController(target: Controller): ResultCode;
     /**
      * Dismantles any (even hostile) structure returning 50% of the energy spent on its repair. Requires the WORK body part. If the creep has an empty CARRY body part, the energy is put into it; otherwise it is dropped on the ground. The target has to be at adjacent square to the creep.
      * @param target The target structure.
      */
-    dismantle(target: Structure): number;
+    dismantle(target: Structure): ResultCode;
     /**
      * Drop this resource on the ground.
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
      */
-    drop(resourceType: string, amount?: number): number;
+    drop(resourceType: ResourceType, amount?: number): ResultCode;
     /**
      * Add one more available safe mode activation to a room controller. The creep has to be at adjacent square to the target room controller and have 1000 ghodium resource.
      * @param target The target room controller.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
      */
-    generateSafeMode(target: Controller): number;
+    generateSafeMode(target: Controller): ResultCode;
     /**
      * Get the quantity of live body parts of the given type. Fully damaged parts do not count.
      * @param type A body part type, one of the following body part constants: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
      */
-    getActiveBodyparts(type: string): number;
+    getActiveBodyparts(type: BodyPartType): ResultCode;
     /**
      * Harvest energy from the source. Needs the WORK body part. If the creep has an empty CARRY body part, the harvested energy is put into it; otherwise it is dropped on the ground. The target has to be at an adjacent square to the creep.
      * @param target The source object to be harvested.
      */
-    harvest(target: Source | Mineral): number;
+    harvest(target: Source | Mineral): ResultCode;
     /**
      * Heal self or another creep. It will restore the target creep’s damaged body parts function and increase the hits counter. Needs the HEAL body part. The target has to be at adjacent square to the creep.
      * @param target The target creep object.
      */
-    heal(target: Creep): number;
+    heal(target: Creep): ResultCode;
     /**
      * Move the creep one square in the specified direction. Needs the MOVE body part.
      * @param direction
      */
-    move(direction: number): number;
+    move(direction: Direction): ResultCode;
     /**
      * Move the creep using the specified predefined path. Needs the MOVE body part.
      * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
      */
-    moveByPath(path: PathStep[] | RoomPosition[] | string): number;
+    moveByPath(path: PathStep[] | RoomPosition[] | string): ResultCode;
     /**
      * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
      * @param x X position of the target in the room.
      * @param y Y position of the target in the room.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
      */
-    moveTo(x: number, y: number, opts?: MoveToOpts): number;
+    moveTo(x: number, y: number, opts?: MoveToOpts): ResultCode;
     /**
      * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
@@ -569,48 +590,48 @@ interface Creep extends RoomObject {
      */
     moveTo(target: RoomPosition | {
         pos: RoomPosition;
-    }, opts?: MoveToOpts): number;
+    }, opts?: MoveToOpts): ResultCode;
     /**
      * Toggle auto notification when the creep is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
      */
-    notifyWhenAttacked(enabled: boolean): number;
+    notifyWhenAttacked(enabled: boolean): ResultCode;
     /**
      * Pick up an item (a dropped piece of energy). Needs the CARRY body part. The target has to be at adjacent square to the creep or at the same square.
      * @param target The target object to be picked up.
      */
-    pickup(target: Resource): number;
+    pickup(target: Resource): ResultCode;
     /**
      * A ranged attack against another creep or structure. Needs the RANGED_ATTACK body part. If the target is inside a rampart, the rampart is attacked instead. The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
      */
-    rangedAttack(target: Creep | Structure): number;
+    rangedAttack(target: Creep | Structure): ResultCode;
     /**
      * Heal another creep at a distance. It will restore the target creep’s damaged body parts function and increase the hits counter. Needs the HEAL body part. The target has to be within 3 squares range of the creep.
      * @param target The target creep object.
      */
-    rangedHeal(target: Creep): number;
+    rangedHeal(target: Creep): ResultCode;
     /**
      * A ranged attack against all hostile creeps or structures within 3 squares range. Needs the RANGED_ATTACK body part. The attack power depends on the range to each target. Friendly units are not affected.
      */
-    rangedMassAttack(): number;
+    rangedMassAttack(): ResultCode;
     /**
      * Repair a damaged structure using carried energy. Needs the WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
      * @param target he target structure to be repaired.
      */
-    repair(target: Structure): number;
+    repair(target: Structure): ResultCode;
     /**
      * Temporarily block a neutral controller from claiming by other players. Each tick, this command increases the counter of the period during which the controller is unavailable by 1 tick per each CLAIM body part. The maximum reservation period to maintain is 5,000 ticks. The target has to be at adjacent square to the creep....
      * @param target The target controller object to be reserved.
      * @return Result code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
-    reserveController(target: Controller): number;
+    reserveController(target: Controller): ResultCode;
     /**
      * Display a visual speech balloon above the creep with the specified message. The message will disappear after a few seconds. Useful for debugging purposes. Only the creep's owner can see the speech message.
      * @param message The message to be displayed. Maximum length is 10 characters.
      * @param set to 'true' to allow other players to see this message. Default is 'false'.
      */
-    say(message: string, toPublic?: boolean): number;
+    say(message: string, toPublic?: boolean): ResultCode;
     /**
      * Sign a controller with a random text visible to all players. This text will appear in the room UI, in the world map, and can be accessed via the API.
      * You can sign unowned and hostile controllers. The target has to be at adjacent square to the creep. Pass an empty string to remove the sign.
@@ -618,34 +639,174 @@ interface Creep extends RoomObject {
      * @param text The sign text. The maximum text length is 100 characters.
      * @returns Result Code: OK, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
      */
-    signController(target: Controller, text: string): number;
+    signController(target: Controller, text: string): ResultCode;
     /**
      * Kill the creep immediately.
      */
-    suicide(): number;
+    suicide(): ResultCode;
     /**
      * Transfer resource from the creep to another object. The target has to be at adjacent square to the creep.
      * @param target The target object.
      * @param resourceType One of the RESOURCE_* constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      */
-    transfer(target: Creep | Structure, resourceType: string, amount?: number): number;
+    transfer(target: Creep | Structure, resourceType: ResourceType, amount?: number): ResultCode;
     /**
      * Upgrade your controller to the next level using carried energy. Upgrading controllers raises your Global Control Level in parallel. Needs WORK and CARRY body parts. The target has to be at adjacent square to the creep. A fully upgraded level 8 controller can't be upgraded with the power over 15 energy units per tick regardless of creeps power. The cumulative effect of all the creeps performing upgradeController in the current tick is taken into account.
      * @param target The target controller object to be upgraded.
      */
-    upgradeController(target: Controller): number;
+    upgradeController(target: Controller): ResultCode;
     /**
      * Withdraw resources from a structure. The target has to be at adjacent square to the creep. Multiple creeps can withdraw from the same structure in the same tick. Your creeps can withdraw resources from hostile structures as well, in case if there is no hostile rampart on top of it.
      * @param target The target object.
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure, resourceType: string, amount?: number): number;
+    withdraw(target: Structure, resourceType: ResourceType, amount?: number): ResultCode;
 }
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {
 }
 declare const Creep: CreepConstructor;
+declare const OK: SuccessCode.OK;
+declare const ERR_NOT_OWNER: ErrorCode.NOT_OWNER;
+declare const ERR_NO_PATH: ErrorCode.NO_PATH;
+declare const ERR_NAME_EXISTS: ErrorCode.NAME_EXISTS;
+declare const ERR_BUSY: ErrorCode.BUSY;
+declare const ERR_NOT_FOUND: ErrorCode.NOT_FOUND;
+declare const ERR_NOT_ENOUGH_RESOURCES: ErrorCode.NOT_ENOUGH_RESOURCES;
+declare const ERR_NOT_ENOUGH_ENERGY: ErrorCode.NOT_ENOUGH_ENERGY;
+declare const ERR_INVALID_TARGET: ErrorCode.INVALID_TARGET;
+declare const ERR_FULL: ErrorCode.FULL;
+declare const ERR_NOT_IN_RANGE: ErrorCode.NOT_IN_RANGE;
+declare const ERR_INVALID_ARGS: ErrorCode.INVALID_ARGS;
+declare const ERR_TIRED: ErrorCode.TIRED;
+declare const ERR_NO_BODYPART: ErrorCode.NO_BODYPART;
+declare const ERR_NOT_ENOUGH_EXTENSIONS: ErrorCode.NOT_ENOUGH_EXTENSIONS;
+declare const ERR_RCL_NOT_ENOUGH: ErrorCode.RCL_NOT_ENOUGH;
+declare const ERR_GCL_NOT_ENOUGH: ErrorCode.GCL_NOT_ENOUGH;
+declare const FIND_EXIT_TOP: FindQuery.EXIT_TOP;
+declare const FIND_EXIT_RIGHT: FindQuery.EXIT_RIGHT;
+declare const FIND_EXIT_BOTTOM: FindQuery.EXIT_BOTTOM;
+declare const FIND_EXIT_LEFT: FindQuery.EXIT_LEFT;
+declare const FIND_EXIT: FindQuery.EXIT;
+declare const FIND_CREEPS: FindQuery.CREEPS;
+declare const FIND_MY_CREEPS: FindQuery.MY_CREEPS;
+declare const FIND_HOSTILE_CREEPS: FindQuery.HOSTILE_CREEPS;
+declare const FIND_SOURCES_ACTIVE: FindQuery.SOURCES_ACTIVE;
+declare const FIND_SOURCES: FindQuery.SOURCES;
+declare const FIND_DROPPED_RESOURCES: FindQuery.DROPPED_RESOURCES;
+declare const FIND_DROPPED_ENERGY: FindQuery.DROPPED_ENERGY;
+declare const FIND_STRUCTURES: FindQuery.STRUCTURES;
+declare const FIND_MY_STRUCTURES: FindQuery.MY_STRUCTURES;
+declare const FIND_HOSTILE_STRUCTURES: FindQuery.HOSTILE_STRUCTURES;
+declare const FIND_FLAGS: FindQuery.FLAGS;
+declare const FIND_CONSTRUCTION_SITES: FindQuery.CONSTRUCTION_SITES;
+declare const FIND_MY_SPAWNS: FindQuery.MY_SPAWNS;
+declare const FIND_HOSTILE_SPAWNS: FindQuery.HOSTILE_SPAWNS;
+declare const FIND_MY_CONSTRUCTION_SITES: FindQuery.MY_CONSTRUCTION_SITES;
+declare const FIND_HOSTILE_CONSTRUCTION_SITES: FindQuery.HOSTILE_CONSTRUCTION_SITES;
+declare const FIND_MINERALS: FindQuery.MINERALS;
+declare const FIND_NUKES: FindQuery.NUKES;
+declare const TOP: Direction.TOP;
+declare const TOP_RIGHT: Direction.TOP_RIGHT;
+declare const RIGHT: Direction.RIGHT;
+declare const BOTTOM_RIGHT: Direction.BOTTOM_RIGHT;
+declare const BOTTOM: Direction.BOTTOM;
+declare const BOTTOM_LEFT: Direction.BOTTOM_LEFT;
+declare const LEFT: Direction.LEFT;
+declare const TOP_LEFT: Direction.TOP_LEFT;
+declare const COLOR_RED: ColorCode.RED;
+declare const COLOR_PURPLE: ColorCode.PURPLE;
+declare const COLOR_BLUE: ColorCode.BLUE;
+declare const COLOR_CYAN: ColorCode.CYAN;
+declare const COLOR_GREEN: ColorCode.GREEN;
+declare const COLOR_YELLOW: ColorCode.YELLOW;
+declare const COLOR_ORANGE: ColorCode.ORANGE;
+declare const COLOR_BROWN: ColorCode.BROWN;
+declare const COLOR_GREY: ColorCode.GREY;
+declare const COLOR_WHITE: ColorCode.WHITE;
+declare const MOVE: BodyPartType.MOVE;
+declare const WORK: BodyPartType.WORK;
+declare const CARRY: BodyPartType.CARRY;
+declare const ATTACK: BodyPartType.ATTACK;
+declare const RANGED_ATTACK: BodyPartType.RANGED_ATTACK;
+declare const TOUGH: BodyPartType.TOUGH;
+declare const HEAL: BodyPartType.HEAL;
+declare const CLAIM: BodyPartType.CLAIM;
+declare const STRUCTURE_EXTENSION: StructureType.EXTENSION;
+declare const STRUCTURE_RAMPART: StructureType.RAMPART;
+declare const STRUCTURE_ROAD: StructureType.ROAD;
+declare const STRUCTURE_SPAWN: StructureType.SPAWN;
+declare const STRUCTURE_LINK: StructureType.LINK;
+declare const STRUCTURE_WALL: StructureType.WALL;
+declare const STRUCTURE_KEEPER_LAIR: StructureType.KEEPER_LAIR;
+declare const STRUCTURE_CONTROLLER: StructureType.CONTROLLER;
+declare const STRUCTURE_STORAGE: StructureType.STORAGE;
+declare const STRUCTURE_TOWER: StructureType.TOWER;
+declare const STRUCTURE_OBSERVER: StructureType.OBSERVER;
+declare const STRUCTURE_POWER_BANK: StructureType.POWER_BANK;
+declare const STRUCTURE_POWER_SPAWN: StructureType.POWER_SPAWN;
+declare const STRUCTURE_EXTRACTOR: StructureType.EXTRACTOR;
+declare const STRUCTURE_LAB: StructureType.LAB;
+declare const STRUCTURE_TERMINAL: StructureType.TERMINAL;
+declare const STRUCTURE_CONTAINER: StructureType.CONTAINER;
+declare const STRUCTURE_NUKER: StructureType.NUKER;
+declare const STRUCTURE_PORTAL: StructureType.PORTAL;
+declare const RESOURCE_ENERGY: ResourceType.ENERGY;
+declare const RESOURCE_POWER: ResourceType.POWER;
+declare const RESOURCE_UTRIUM: ResourceType.UTRIUM;
+declare const RESOURCE_LEMERGIUM: ResourceType.LEMERGIUM;
+declare const RESOURCE_KEANIUM: ResourceType.KEANIUM;
+declare const RESOURCE_GHODIUM: ResourceType.GHODIUM;
+declare const RESOURCE_ZYNTHIUM: ResourceType.ZYNTHIUM;
+declare const RESOURCE_OXYGEN: ResourceType.OXYGEN;
+declare const RESOURCE_HYDROGEN: ResourceType.HYDROGEN;
+declare const RESOURCE_CATALYST: ResourceType.CATALYST;
+declare const RESOURCE_HYDROXIDE: ResourceType.HYDROXIDE;
+declare const RESOURCE_ZYNTHIUM_KEANITE: ResourceType.ZYNTHIUM_KEANITE;
+declare const RESOURCE_UTRIUM_LEMERGITE: ResourceType.UTRIUM_LEMERGITE;
+declare const RESOURCE_UTRIUM_HYDRIDE: ResourceType.UTRIUM_HYDRIDE;
+declare const RESOURCE_UTRIUM_OXIDE: ResourceType.UTRIUM_OXIDE;
+declare const RESOURCE_KEANIUM_HYDRIDE: ResourceType.KEANIUM_HYDRIDE;
+declare const RESOURCE_KEANIUM_OXIDE: ResourceType.KEANIUM_OXIDE;
+declare const RESOURCE_LEMERGIUM_HYDRIDE: ResourceType.LEMERGIUM_HYDRIDE;
+declare const RESOURCE_LEMERGIUM_OXIDE: ResourceType.LEMERGIUM_OXIDE;
+declare const RESOURCE_ZYNTHIUM_HYDRIDE: ResourceType.ZYNTHIUM_HYDRIDE;
+declare const RESOURCE_ZYNTHIUM_OXIDE: ResourceType.ZYNTHIUM_OXIDE;
+declare const RESOURCE_GHODIUM_HYDRIDE: ResourceType.GHODIUM_HYDRIDE;
+declare const RESOURCE_GHODIUM_OXIDE: ResourceType.GHODIUM_OXIDE;
+declare const RESOURCE_UTRIUM_ACID: ResourceType.UTRIUM_ACID;
+declare const RESOURCE_UTRIUM_ALKALIDE: ResourceType.UTRIUM_ALKALIDE;
+declare const RESOURCE_KEANIUM_ACID: ResourceType.KEANIUM_ACID;
+declare const RESOURCE_KEANIUM_ALKALIDE: ResourceType.KEANIUM_ALKALIDE;
+declare const RESOURCE_LEMERGIUM_ACID: ResourceType.LEMERGIUM_ACID;
+declare const RESOURCE_LEMERGIUM_ALKALIDE: ResourceType.LEMERGIUM_ALKALIDE;
+declare const RESOURCE_ZYNTHIUM_ACID: ResourceType.ZYNTHIUM_ACID;
+declare const RESOURCE_ZYNTHIUM_ALKALIDE: ResourceType.ZYNTHIUM_ALKALIDE;
+declare const RESOURCE_GHODIUM_ACID: ResourceType.GHODIUM_ACID;
+declare const RESOURCE_GHODIUM_ALKALIDE: ResourceType.GHODIUM_ALKALIDE;
+declare const RESOURCE_CATALYZED_UTRIUM_ACID: ResourceType.CATALYZED_UTRIUM_ACID;
+declare const RESOURCE_CATALYZED_UTRIUM_ALKALIDE: ResourceType.CATALYZED_UTRIUM_ALKALIDE;
+declare const RESOURCE_CATALYZED_KEANIUM_ACID: ResourceType.CATALYZED_KEANIUM_ACID;
+declare const RESOURCE_CATALYZED_KEANIUM_ALKALIDE: ResourceType.CATALYZED_KEANIUM_ALKALIDE;
+declare const RESOURCE_CATALYZED_LEMERGIUM_ACID: ResourceType.CATALYZED_LEMERGIUM_ACID;
+declare const RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE: ResourceType.CATALYZED_LEMERGIUM_ALKALIDE;
+declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: ResourceType.CATALYZED_ZYNTHIUM_ACID;
+declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: ResourceType.CATALYZED_ZYNTHIUM_ALKALIDE;
+declare const RESOURCE_CATALYZED_GHODIUM_ACID: ResourceType.CATALYZED_GHODIUM_ACID;
+declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: ResourceType.CATALYZED_GHODIUM_ALKALIDE;
+declare const LOOK_CREEPS: LookQuery.CREEPS;
+declare const LOOK_ENERGY: LookQuery.ENERGY;
+declare const LOOK_RESOURCES: LookQuery.RESOURCES;
+declare const LOOK_SOURCES: LookQuery.SOURCES;
+declare const LOOK_MINERALS: LookQuery.MINERALS;
+declare const LOOK_STRUCTURES: LookQuery.STRUCTURES;
+declare const LOOK_FLAGS: LookQuery.FLAGS;
+declare const LOOK_CONSTRUCTION_SITES: LookQuery.CONSTRUCTION_SITES;
+declare const LOOK_NUKES: LookQuery.NUKES;
+declare const LOOK_TERRAIN: LookQuery.TERRAIN;
+declare const ORDER_SELL: OrderType.SELL;
+declare const ORDER_BUY: OrderType.BUY;
 /**
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
  */
@@ -654,7 +815,7 @@ interface Flag extends RoomObject {
     /**
      * Flag color. One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
      */
-    color: number;
+    color: ColorCode;
     /**
      * A shorthand to Memory.flags[flag.name]. You can use it for quick access the flag's specific memory data object.
      */
@@ -666,26 +827,26 @@ interface Flag extends RoomObject {
     /**
      * Flag secondary color. One of the COLOR_* constants.
      */
-    secondaryColor: number;
+    secondaryColor: ColorCode;
     /**
      * Remove the flag.
      * @returns Result Code: OK
      */
-    remove(): number;
+    remove(): SuccessCode;
     /**
      * Set new color of the flag.
      * @param color One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
      * @parma secondaryColor Secondary color of the flag. One of the COLOR_* constants.
      * @returns Result Code: OK, ERR_INVALID_ARGS
      */
-    setColor(color: number, secondaryColor?: number): number;
+    setColor(color: ColorCode, secondaryColor?: ColorCode): ResultCode;
     /**
      * Set new position of the flag.
      * @param x The X position in the room.
      * @param y The Y position in the room.
      * @returns Result Code: OK, ERR_INVALID_TARGET
      */
-    setPosition(x: number, y: number): number;
+    setPosition(x: number, y: number): ResultCode;
     /**
      * Set new position of the flag.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -693,11 +854,11 @@ interface Flag extends RoomObject {
      */
     setPosition(pos: RoomPosition | {
         pos: RoomPosition;
-    }): number;
+    }): ResultCode;
 }
 interface FlagConstructor extends _Constructor<Flag> {
-    new (name: string, color: number, secondaryColor: number, roomName: string, x: number, y: number): Flag;
-    (name: string, color: number, secondaryColor: number, roomName: string, x: number, y: number): Flag;
+    new (name: string, color: ColorCode, secondaryColor: ColorCode, roomName: string, x: number, y: number): Flag;
+    (name: string, color: ColorCode, secondaryColor: ColorCode, roomName: string, x: number, y: number): Flag;
 }
 declare const Flag: FlagConstructor;
 /**
@@ -798,7 +959,7 @@ interface BodyPartDefinition {
     /**
      * One of the body part types constants.
      */
-    type: string;
+    type: BodyPartType;
     /**
      * The remaining amount of hit points of this body part.
      */
@@ -941,7 +1102,7 @@ interface PathStep {
     dx: number;
     y: number;
     dy: number;
-    direction: number;
+    direction: Direction;
 }
 /**
  * An object with survival game info
@@ -967,6 +1128,7 @@ interface _ConstructorById<T> extends _Constructor<T> {
     new (id: string): T;
     (id: string): T;
 }
+declare type Filter<T> = ((t: T) => boolean) | Partial<T> | string | any;
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -1000,7 +1162,7 @@ interface GameMap {
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): number;
+    findExit(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): ResultCode;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.
@@ -1011,7 +1173,7 @@ interface GameMap {
     findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): {
         exit: number;
         room: string;
-    }[] | number;
+    }[] | ErrorCode;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.
@@ -1076,34 +1238,34 @@ interface Market {
      * @param orderId The order ID as provided in Game.market.orders
      * @returns Result Code: OK, ERR_INVALID_ARGS
      */
-    cancelOrder(orderId: string): number;
+    cancelOrder(orderId: string): ResultCode;
     /**
      * Change the price of an existing order. If newPrice is greater than old price, you will be charged (newPrice-oldPrice)*remainingAmount*0.05 credits.
      * @param orderId The order ID as provided in Game.market.orders
      * @param newPrice The new order price.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
      */
-    changeOrderPrice(orderId: string, newPrice: number): number;
+    changeOrderPrice(orderId: string, newPrice: number): ResultCode;
     /**
      * Create a market order in your terminal. You will be charged price*amount*0.05 credits when the order is placed.
      * The maximum orders count is 20 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
      */
-    createOrder(type: string, resourceType: string, price: number, totalAmount: number, roomName?: string): number;
+    createOrder(type: OrderType, resourceType: ResourceType, price: number, totalAmount: number, roomName?: string): ResultCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
      * Your Terminal will be charged energy units of transfer cost regardless of the order resource type.
      * You can use Game.market.calcTransactionCost method to estimate it.
      * When multiple players try to execute the same deal, the one with the shortest distance takes precedence.
      */
-    deal(orderId: string, amount: number, targetRoomName?: string): number;
+    deal(orderId: string, amount: number, targetRoomName?: string): ResultCode;
     /**
      * Add more capacity to an existing order. It will affect remainingAmount and totalAmount properties. You will be charged price*addAmount*0.05 credits.
      * @param orderId The order ID as provided in Game.market.orders
      * @param addAmount How much capacity to add. Cannot be a negative value.
      * @returns Result Code: OK, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
      */
-    extendOrder(orderId: string, addAmount: number): number;
+    extendOrder(orderId: string, addAmount: number): ResultCode;
     /**
      * Get other players' orders currently active on the market.
      * @param filter (optional) An object or function that will filter the resulting list using the lodash.filter method.
@@ -1126,7 +1288,7 @@ interface Transaction {
     recipient?: {
         username: string;
     };
-    resourceType: string;
+    resourceType: ResourceType;
     amount: number;
     from: string;
     to: string;
@@ -1136,8 +1298,8 @@ interface Order {
     id: string;
     created: number;
     active?: boolean;
-    type: string;
-    resourceType: string;
+    type: OrderType;
+    resourceType: ResourceType;
     roomName?: string;
     amount: number;
     remainingAmount: number;
@@ -1147,8 +1309,8 @@ interface Order {
 interface OrderFilter {
     id?: string;
     created?: number;
-    type?: string;
-    resourceType?: string;
+    type?: OrderType;
+    resourceType?: ResourceType;
     roomName?: string;
     amount?: number;
     remainingAmount?: number;
@@ -1188,7 +1350,7 @@ interface Mineral extends RoomObject {
     /**
      * The resource type, one of the RESOURCE_* constants.
      */
-    mineralType: string;
+    mineralType: ResourceType;
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
@@ -1424,7 +1586,7 @@ interface Resource extends RoomObject {
     /**
      * One of the `RESOURCE_*` constants.
      */
-    resourceType: string;
+    resourceType: ResourceType;
 }
 interface ResourceConstructor {
     new (id: string): Resource;
@@ -1473,21 +1635,21 @@ interface RoomPosition {
      * Create new ConstructionSite at the specified location.
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      */
-    createConstructionSite(structureType: string): number;
+    createConstructionSite(structureType: ResourceType): ResultCode;
     /**
      * Create new Flag at the specified location.
      * @param name The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
      * @param color The color of a new flag. Should be one of the COLOR_* constants
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(name?: string, color?: number, secondaryColor?: number): number;
+    createFlag(name?: string, color?: ColorCode, secondaryColor?: ColorCode): ResultCode;
     /**
      * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param type See Room.find
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByPath<T>(type: number, opts?: FindPathOpts & {
-        filter?: any | string;
+    findClosestByPath<T>(type: FindQuery, opts?: FindPathOpts & {
+        filter?: Filter<T>;
         algorithm?: string;
     }): T;
     /**
@@ -1496,7 +1658,7 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
     findClosestByPath<T>(objects: T[] | RoomPosition[], opts?: FindPathOpts & {
-        filter?: any | string;
+        filter?: Filter<T>;
         algorithm?: string;
     }): T;
     /**
@@ -1504,8 +1666,8 @@ interface RoomPosition {
      * @param type See Room.find.
      * @param opts
      */
-    findClosestByRange<T>(type: number, opts?: {
-        filter: any | string;
+    findClosestByRange<T>(type: FindQuery, opts?: {
+        filter: Filter<T>;
     }): T;
     /**
      * Find an object with the shortest linear distance from the given position.
@@ -1513,7 +1675,7 @@ interface RoomPosition {
      * @param opts An object containing one of the following options: filter
      */
     findClosestByRange<T>(objects: T[] | RoomPosition[], opts?: {
-        filter: any | string;
+        filter: Filter<T>;
     }): T;
     /**
      * Find all objects in the specified linear range.
@@ -1521,8 +1683,8 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T>(type: number, range: number, opts?: {
-        filter?: any | string;
+    findInRange<T>(type: FindQuery, range: number, opts?: {
+        filter?: Filter<T>;
     }): T[];
     /**
      * Find all objects in the specified linear range.
@@ -1531,7 +1693,7 @@ interface RoomPosition {
      * @param opts See Room.find.
      */
     findInRange<T>(objects: T[] | RoomPosition[], range: number, opts?: {
-        filter?: any | string;
+        filter?: Filter<T>;
     }): T[];
     /**
      * Find an optimal path to the specified position using A* search algorithm. This method is a shorthand for Room.findPath. If the target is in another room, then the corresponding exit will be used as a target.
@@ -1553,14 +1715,14 @@ interface RoomPosition {
      * @param x X position in the room.
      * @param y Y position in the room.
      */
-    getDirectionTo(x: number, y: number): number;
+    getDirectionTo(x: number, y: number): Direction;
     /**
      * Get linear direction to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
     getDirectionTo(target: RoomPosition | {
         pos: RoomPosition;
-    }): number;
+    }): Direction;
     /**
      * Get linear range to the specified position.
      * @param x X position in the room.
@@ -1616,7 +1778,7 @@ interface RoomPosition {
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, exit, flag, resource, source, structure, terrain
      */
-    lookFor<T>(type: string): T[];
+    lookFor<T>(type: LookQuery): T[];
 }
 interface RoomPositionConstructor extends _Constructor<RoomPosition> {
     /**
@@ -1796,7 +1958,7 @@ interface Room {
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(x: number, y: number, structureType: string): number;
+    createConstructionSite(x: number, y: number, structureType: StructureType): ResultCode;
     /**
      * Create new ConstructionSite at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -1805,7 +1967,7 @@ interface Room {
      */
     createConstructionSite(pos: RoomPosition | {
         pos: RoomPosition;
-    }, structureType: string): number;
+    }, structureType: StructureType): ResultCode;
     /**
      * Create new Flag at the specified location.
      * @param x The X position.
@@ -1814,7 +1976,7 @@ interface Room {
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(x: number, y: number, name?: string, color?: number, secondaryColor?: number): number;
+    createFlag(x: number, y: number, name?: string, color?: ColorCode, secondaryColor?: ColorCode): ResultCode;
     /**
      * Create new Flag at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -1824,15 +1986,15 @@ interface Room {
      */
     createFlag(pos: RoomPosition | {
         pos: RoomPosition;
-    }, name?: string, color?: number, secondaryColor?: number): number;
+    }, name?: string, color?: ColorCode, secondaryColor?: ColorCode): ResultCode;
     /**
      * Find all objects of the specified type in the room.
      * @param type One of the following constants:FIND_CREEPS, FIND_MY_CREEPS, FIND_HOSTILE_CREEPS, FIND_MY_SPAWNS, FIND_HOSTILE_SPAWNS, FIND_SOURCES, FIND_SOURCES_ACTIVE, FIND_DROPPED_RESOURCES, FIND_DROPPED_ENERGY, FIND_STRUCTURES, FIND_MY_STRUCTURES, FIND_HOSTILE_STRUCTURES, FIND_FLAGS, FIND_CONSTRUCTION_SITES, FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT, FIND_EXIT
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<T>(type: number, opts?: {
-        filter: Object | Function | string;
+    find<T>(type: FindQuery, opts?: {
+        filter: Filter<T>;
     }): T[];
     /**
      * Find the exit direction en route to another room.
@@ -1840,7 +2002,7 @@ interface Room {
      * @returns The room direction constant, one of the following: FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following error codes: ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExitTo(room: string | Room): number;
+    findExitTo(room: string | Room): ResultCode;
     /**
      * Find an optimal path inside the room between fromPos and toPos using A* search algorithm.
      * @param fromPos The start position.
@@ -1888,14 +2050,14 @@ interface Room {
      * @param y The Y position.
      * @returns An array of objects of the given type at the specified position if found.
      */
-    lookForAt<T>(type: string, x: number, y: number): T[];
+    lookForAt<T>(type: LookQuery, x: number, y: number): T[];
     /**
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array of objects of the given type at the specified position if found.
      */
-    lookForAt<T>(type: string, target: RoomPosition | {
+    lookForAt<T>(type: LookQuery, target: RoomPosition | {
         pos: RoomPosition;
     }): T[];
     /**
@@ -1907,7 +2069,7 @@ interface Room {
      * @param right The right X boundary of the area.
      * @returns An object with all the objects of the given type in the specified area
      */
-    lookForAtArea(type: string, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
+    lookForAtArea(type: LookQuery, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
 }
 interface RoomConstructor {
     new (id: string): Room;
@@ -1985,7 +2147,7 @@ interface StructureSpawn extends OwnedStructure {
      * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants: WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
      * @param name The name of a new creep. It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key). If not defined, a random name will be generated.
      */
-    canCreateCreep(body: string[], name?: string): number;
+    canCreateCreep(body: BodyPartType[], name?: string): ResultCode;
     /**
      * Start the creep spawning process.
      * The name of a new creep or one of these error codes
@@ -1999,11 +2161,11 @@ interface StructureSpawn extends OwnedStructure {
      * @param name The name of a new creep. It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key). If not defined, a random name will be generated.
      * @param memory The memory of a new creep. If provided, it will be immediately stored into Memory.creeps[name].
      */
-    createCreep(body: string[], name?: string, memory?: any): number | string;
+    createCreep(body: BodyPartType[], name?: string, memory?: any): ErrorCode | string;
     /**
      * Destroy this spawn immediately.
      */
-    destroy(): number;
+    destroy(): ResultCode;
     /**
      * Check whether this structure can be used. If the room controller level is not enough, then this method will return false, and the structure will be highlighted with red in the game.
      */
@@ -2012,24 +2174,24 @@ interface StructureSpawn extends OwnedStructure {
      * Toggle auto notification when the spawn is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
      */
-    notifyWhenAttacked(enabled: boolean): number;
+    notifyWhenAttacked(enabled: boolean): ResultCode;
     /**
      * Increase the remaining time to live of the target creep. The target should be at adjacent square. The spawn should not be busy with the spawning process. Each execution increases the creep's timer by amount of ticks according to this formula: floor(500/body_size). Energy required for each execution is determined using this formula: ceil(creep_cost/3/body_size).
      * @param target The target creep object.
      */
-    renewCreep(target: Creep): number;
+    renewCreep(target: Creep): ResultCode;
     /**
      * Kill the creep and drop up to 100% of resources spent on its spawning and boosting depending on remaining life time. The target should be at adjacent square.
      * @param target The target creep object.
      */
-    recycleCreep(target: Creep): number;
+    recycleCreep(target: Creep): ResultCode;
     /**
      * @deprecated
      * Transfer the energy from the spawn to a creep.
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    transferEnergy(target: Creep, amount?: number): ResultCode;
 }
 interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _ConstructorById<StructureSpawn> {
 }
@@ -2059,11 +2221,11 @@ interface Structure extends RoomObject {
     /**
      * One of the STRUCTURE_* constants.
      */
-    structureType: string;
+    structureType: StructureType;
     /**
      * Destroy this structure immediately.
      */
-    destroy(): number;
+    destroy(): ResultCode;
     /**
      * Check whether this structure can be used. If the room controller level is not enough, then this method will return false, and the structure will be highlighted with red in the game.
      */
@@ -2072,7 +2234,7 @@ interface Structure extends RoomObject {
      * Toggle auto notification when the structure is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
      */
-    notifyWhenAttacked(enabled: boolean): number;
+    notifyWhenAttacked(enabled: boolean): ResultCode;
 }
 interface StructureConstructor extends _Constructor<Structure>, _ConstructorById<Structure> {
 }
@@ -2150,11 +2312,11 @@ interface StructureController extends OwnedStructure {
      * Activate safe mode if available.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_TIRED
      */
-    activateSafeMode(): number;
+    activateSafeMode(): ResultCode;
     /**
      * Make your claimed controller neutral again.
      */
-    unclaim(): number;
+    unclaim(): ResultCode;
 }
 interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> {
 }
@@ -2180,7 +2342,7 @@ interface StructureExtension extends OwnedStructure {
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    transferEnergy(target: Creep, amount?: number): ResultCode;
 }
 interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {
 }
@@ -2207,7 +2369,7 @@ interface StructureLink extends OwnedStructure {
      * @param target The target object.
      * @param amount The amount of energy to be transferred. If omitted, all the available energy is used.
      */
-    transferEnergy(target: Creep | StructureLink, amount?: number): number;
+    transferEnergy(target: Creep | StructureLink, amount?: number): ResultCode;
 }
 interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> {
 }
@@ -2235,7 +2397,7 @@ interface StructureObserver extends OwnedStructure {
      * Provide visibility into a distant room from your script. The target room object will be available on the next tick. The maximum range is 5 rooms.
      * @param roomName
      */
-    observeRoom(roomName: string): number;
+    observeRoom(roomName: string): ResultCode;
 }
 interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> {
 }
@@ -2283,18 +2445,18 @@ interface StructurePowerSpawn extends OwnedStructure {
      * Create a power creep. Currently in development
      * @param name The name of the power creep.
      */
-    createPowerCreep(name: string): number;
+    createPowerCreep(name: string): ResultCode;
     /**
      * Register power resource units into your account. Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
      */
-    processPower(): number;
+    processPower(): ResultCode;
     /**
      * @deprecated
      * Transfer the energy from this structure to a creep.
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    transferEnergy(target: Creep, amount?: number): ResultCode;
 }
 interface StructurePowerSpawnConstructor extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn> {
 }
@@ -2356,7 +2518,7 @@ interface StructureStorage extends OwnedStructure {
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    transfer(target: Creep, resourceType: ResourceType, amount?: number): ResultCode;
     /**
      * @deprecated
      * An alias for storage.transfer(target, RESOURCE_ENERGY, amount).
@@ -2364,7 +2526,7 @@ interface StructureStorage extends OwnedStructure {
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      * @deprecated
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    transferEnergy(target: Creep, amount?: number): ResultCode;
 }
 interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> {
 }
@@ -2388,23 +2550,23 @@ interface StructureTower extends OwnedStructure {
      * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target creep.
      */
-    attack(target: Creep): number;
+    attack(target: Creep): ResultCode;
     /**
      * Remotely heal any creep in the room. Consumes 10 energy units per tick. Heal power depends on the distance to the target: from 400 hits at range 10 to 200 hits at range 40.
      * @param target The target creep.
      */
-    heal(target: Creep): number;
+    heal(target: Creep): ResultCode;
     /**
      * Remotely repair any structure in the room. Consumes 10 energy units per tick. Repair power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target structure.
      */
-    repair(target: Spawn | Structure): number;
+    repair(target: Spawn | Structure): ResultCode;
     /**
      * @deprecated
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    transferEnergy(target: Creep, amount?: number): ResultCode;
 }
 interface StructureTowerConstructor extends _Constructor<StructureTower>, _ConstructorById<StructureTower> {
 }
@@ -2469,20 +2631,20 @@ interface StructureLab extends OwnedStructure {
      * @param creep The target creep.
      * @param bodyPartsCount The number of body parts of the corresponding type to be boosted. Body parts are always counted left-to-right for TOUGH, and right-to-left for other types. If undefined, all the eligible body parts are boosted.
      */
-    boostCreep(creep: Creep, bodyPartsCount?: number): number;
+    boostCreep(creep: Creep, bodyPartsCount?: number): ResultCode;
     /**
      * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
      * @param lab1 The first source lab.
      * @param lab2 The second source lab.
      */
-    runReaction(lab1: StructureLab, lab2: StructureLab): number;
+    runReaction(lab1: StructureLab, lab2: StructureLab): ResultCode;
     /**
      * Transfer resource from this structure to a creep. The target has to be at adjacent square.
      * @param target The target object.
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    transfer(target: Creep, resourceType: ResourceType, amount?: number): ResultCode;
 }
 interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> {
 }
@@ -2511,14 +2673,14 @@ interface StructureTerminal extends OwnedStructure {
      * @param destination The name of the target room. You don't have to gain visibility in this room.
      * @param description The description of the transaction. It is visible to the recipient. The maximum length is 100 characters.
      */
-    send(resourceType: string, amount: number, destination: string, description?: string): number;
+    send(resourceType: ResourceType, amount: number, destination: string, description?: string): ResultCode;
     /**
      * Transfer resource from this terminal to a creep. The target has to be at adjacent square.
      * @param target The target object.
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    transfer(target: Creep, resourceType: ResourceType, amount?: number): ResultCode;
 }
 interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> {
 }
@@ -2547,7 +2709,7 @@ interface StructureContainer extends Structure {
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    transfer(target: Creep, resourceType: ResourceType, amount?: number): ResultCode;
 }
 interface StructureContainerConstructor extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer> {
 }
@@ -2585,7 +2747,7 @@ interface StructureNuker extends OwnedStructure {
      * Launch a nuke to the specified position.
      * @param pos The target room position.
      */
-    launchNuke(pos: RoomPosition): number;
+    launchNuke(pos: RoomPosition): ResultCode;
 }
 interface StructureNukerConstructor extends _Constructor<StructureNuker>, _ConstructorById<StructureNuker> {
 }
