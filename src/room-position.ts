@@ -1,3 +1,6 @@
+
+type Filter<T> = ((t: T) => boolean) | Partial<T> | string | any;
+
 /**
  * An object representing the specified position in the room. Every object in the room contains RoomPosition as the pos property. The position object of a custom location can be obtained using the Room.getPositionAt() method or using the constructor.
  */
@@ -20,52 +23,52 @@ interface RoomPosition {
      * Create new ConstructionSite at the specified location.
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      */
-    createConstructionSite(structureType: string): number;
+    createConstructionSite(structureType: ResourceType): ResultCode;
     /**
      * Create new Flag at the specified location.
      * @param name The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
      * @param color The color of a new flag. Should be one of the COLOR_* constants
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(name?: string, color?: number, secondaryColor?: number): number;
+    createFlag(name?: string, color?: ColorCode, secondaryColor?: ColorCode): ResultCode;
     /**
      * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param type See Room.find
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByPath<T>(type: number, opts?: FindPathOpts & { filter?: any | string, algorithm?: string }): T;
+    findClosestByPath<T>(type: FindQuery, opts?: FindPathOpts & { filter?: Filter<T>, algorithm?: string }): T;
     /**
      * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByPath<T>(objects: T[] | RoomPosition[], opts?: FindPathOpts & { filter?: any | string, algorithm?: string }): T;
+    findClosestByPath<T>(objects: T[] | RoomPosition[], opts?: FindPathOpts & { filter?: Filter<T>, algorithm?: string }): T;
     /**
      * Find an object with the shortest linear distance from the given position.
      * @param type See Room.find.
      * @param opts
      */
-    findClosestByRange<T>(type: number, opts?: { filter: any | string }): T;
+    findClosestByRange<T>(type: FindQuery, opts?: { filter: Filter<T> }): T;
     /**
      * Find an object with the shortest linear distance from the given position.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param opts An object containing one of the following options: filter
      */
-    findClosestByRange<T>(objects: T[] | RoomPosition[], opts?: { filter: any | string }): T;
+    findClosestByRange<T>(objects: T[] | RoomPosition[], opts?: { filter: Filter<T> }): T;
     /**
      * Find all objects in the specified linear range.
      * @param type See Room.find.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T>(type: number, range: number, opts?: { filter?: any | string }): T[];
+    findInRange<T>(type: FindQuery, range: number, opts?: { filter?: Filter<T> }): T[];
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T>(objects: T[] | RoomPosition[], range: number, opts?: { filter?: any | string }): T[];
+    findInRange<T>(objects: T[] | RoomPosition[], range: number, opts?: { filter?: Filter<T> }): T[];
     /**
      * Find an optimal path to the specified position using A* search algorithm. This method is a shorthand for Room.findPath. If the target is in another room, then the corresponding exit will be used as a target.
      * @param x X position in the room.
@@ -84,12 +87,12 @@ interface RoomPosition {
      * @param x X position in the room.
      * @param y Y position in the room.
      */
-    getDirectionTo(x: number, y: number): number;
+    getDirectionTo(x: number, y: number): Direction;
     /**
      * Get linear direction to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    getDirectionTo(target: RoomPosition | { pos: RoomPosition }): number;
+    getDirectionTo(target: RoomPosition | { pos: RoomPosition }): Direction;
     /**
      * Get linear range to the specified position.
      * @param x X position in the room.
@@ -137,7 +140,7 @@ interface RoomPosition {
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, exit, flag, resource, source, structure, terrain
      */
-    lookFor<T>(type: string): T[];
+    lookFor<T>(type: LookQuery): T[];
 }
 
 interface RoomPositionConstructor extends _Constructor<RoomPosition> {

@@ -27,7 +27,7 @@ interface GameMap {
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(fromRoom: string|Room, toRoom: string|Room, opts?: RouteOptions): number;
+    findExit(fromRoom: string|Room, toRoom: string|Room, opts?: RouteOptions): ResultCode;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.
@@ -38,7 +38,7 @@ interface GameMap {
     findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): {
         exit: number;
         room: string;
-    }[] | number;
+    }[] | ErrorCode;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.

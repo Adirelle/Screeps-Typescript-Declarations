@@ -26,7 +26,7 @@ interface BodyPartDefinition {
     /**
      * One of the body part types constants.
      */
-    type: string;
+    type: BodyPartType;
     /**
      * The remaining amount of hit points of this body part.
      */
@@ -188,7 +188,7 @@ interface PathStep {
     dx: number;
     y: number;
     dy: number;
-    direction: number;
+    direction: Direction;
 }
 
 /**

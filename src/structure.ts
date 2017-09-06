@@ -25,11 +25,11 @@ interface Structure extends RoomObject {
     /**
      * One of the STRUCTURE_* constants.
      */
-    structureType: string;
+    structureType: StructureType;
     /**
      * Destroy this structure immediately.
      */
-    destroy(): number;
+    destroy(): ResultCode;
     /**
      * Check whether this structure can be used. If the room controller level is not enough, then this method will return false, and the structure will be highlighted with red in the game.
      */
@@ -38,7 +38,7 @@ interface Structure extends RoomObject {
      * Toggle auto notification when the structure is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
      */
-    notifyWhenAttacked(enabled: boolean): number;
+    notifyWhenAttacked(enabled: boolean): ResultCode;
 }
 
 interface StructureConstructor extends _Constructor<Structure>, _ConstructorById<Structure> {
@@ -125,11 +125,11 @@ interface StructureController extends OwnedStructure {
      * Activate safe mode if available.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_TIRED
      */
-    activateSafeMode(): number;
+    activateSafeMode(): ResultCode;
     /**
      * Make your claimed controller neutral again.
      */
-    unclaim(): number;
+    unclaim(): ResultCode;
 }
 
 interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> {
@@ -159,7 +159,7 @@ interface StructureExtension extends OwnedStructure {
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    transferEnergy(target: Creep, amount?: number): ResultCode;
 }
 
 interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {
@@ -190,7 +190,7 @@ interface StructureLink extends OwnedStructure {
      * @param target The target object.
      * @param amount The amount of energy to be transferred. If omitted, all the available energy is used.
      */
-    transferEnergy(target: Creep | StructureLink, amount?: number): number;
+    transferEnergy(target: Creep | StructureLink, amount?: number): ResultCode;
 }
 
 interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> {
@@ -226,7 +226,7 @@ interface StructureObserver extends OwnedStructure {
      * Provide visibility into a distant room from your script. The target room object will be available on the next tick. The maximum range is 5 rooms.
      * @param roomName
      */
-    observeRoom(roomName: string): number;
+    observeRoom(roomName: string): ResultCode;
 }
 
 interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> {
@@ -282,18 +282,18 @@ interface StructurePowerSpawn extends OwnedStructure {
      * Create a power creep. Currently in development
      * @param name The name of the power creep.
      */
-    createPowerCreep(name: string): number;
+    createPowerCreep(name: string): ResultCode;
     /**
      * Register power resource units into your account. Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
      */
-    processPower(): number;
+    processPower(): ResultCode;
     /**
      * @deprecated
      * Transfer the energy from this structure to a creep.
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    transferEnergy(target: Creep, amount?: number): ResultCode;
 
 }
 
@@ -371,7 +371,7 @@ interface StructureStorage extends OwnedStructure {
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    transfer(target: Creep, resourceType: ResourceType, amount?: number): ResultCode;
     /**
      * @deprecated
      * An alias for storage.transfer(target, RESOURCE_ENERGY, amount).
@@ -379,7 +379,7 @@ interface StructureStorage extends OwnedStructure {
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      * @deprecated
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    transferEnergy(target: Creep, amount?: number): ResultCode;
 }
 
 interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> {
@@ -408,23 +408,23 @@ interface StructureTower extends OwnedStructure {
      * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target creep.
      */
-    attack(target: Creep): number;
+    attack(target: Creep): ResultCode;
     /**
      * Remotely heal any creep in the room. Consumes 10 energy units per tick. Heal power depends on the distance to the target: from 400 hits at range 10 to 200 hits at range 40.
      * @param target The target creep.
      */
-    heal(target: Creep): number;
+    heal(target: Creep): ResultCode;
     /**
      * Remotely repair any structure in the room. Consumes 10 energy units per tick. Repair power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target structure.
      */
-    repair(target: Spawn | Structure): number;
+    repair(target: Spawn | Structure): ResultCode;
     /**
      * @deprecated
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
-    transferEnergy(target: Creep, amount?: number): number;
+    transferEnergy(target: Creep, amount?: number): ResultCode;
 }
 
 interface StructureTowerConstructor extends _Constructor<StructureTower>, _ConstructorById<StructureTower> {
@@ -498,20 +498,20 @@ interface StructureLab extends OwnedStructure {
      * @param creep The target creep.
      * @param bodyPartsCount The number of body parts of the corresponding type to be boosted. Body parts are always counted left-to-right for TOUGH, and right-to-left for other types. If undefined, all the eligible body parts are boosted.
      */
-    boostCreep(creep: Creep, bodyPartsCount?: number): number;
+    boostCreep(creep: Creep, bodyPartsCount?: number): ResultCode;
     /**
      * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
      * @param lab1 The first source lab.
      * @param lab2 The second source lab.
      */
-    runReaction(lab1: StructureLab, lab2: StructureLab): number;
+    runReaction(lab1: StructureLab, lab2: StructureLab): ResultCode;
     /**
      * Transfer resource from this structure to a creep. The target has to be at adjacent square.
      * @param target The target object.
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    transfer(target: Creep, resourceType: ResourceType, amount?: number): ResultCode;
 }
 
 interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> {
@@ -543,14 +543,14 @@ interface StructureTerminal extends OwnedStructure {
      * @param destination The name of the target room. You don't have to gain visibility in this room.
      * @param description The description of the transaction. It is visible to the recipient. The maximum length is 100 characters.
      */
-    send(resourceType: string, amount: number, destination: string, description?: string): number;
+    send(resourceType: ResourceType, amount: number, destination: string, description?: string): ResultCode;
     /**
      * Transfer resource from this terminal to a creep. The target has to be at adjacent square.
      * @param target The target object.
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    transfer(target: Creep, resourceType: ResourceType, amount?: number): ResultCode;
 }
 
 interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> {
@@ -582,7 +582,7 @@ interface StructureContainer extends Structure {
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    transfer(target: Creep, resourceType: ResourceType, amount?: number): ResultCode;
 }
 
 interface StructureContainerConstructor extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer> {
@@ -623,7 +623,7 @@ interface StructureNuker extends OwnedStructure {
      * Launch a nuke to the specified position.
      * @param pos The target room position.
      */
-    launchNuke(pos: RoomPosition): number;
+    launchNuke(pos: RoomPosition): ResultCode;
 }
 
 interface StructureNukerConstructor extends _Constructor<StructureNuker>, _ConstructorById<StructureNuker> {

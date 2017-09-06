@@ -16,7 +16,7 @@ interface Resource extends RoomObject {
     /**
      * One of the `RESOURCE_*` constants.
      */
-    resourceType: string;
+    resourceType: ResourceType;
 }
 
 interface ResourceConstructor {
