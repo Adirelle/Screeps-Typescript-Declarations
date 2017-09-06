@@ -3,67 +3,80 @@
  * This might need some updates when Screeps publishes new features or changes it's existing API
  */
 
-declare const OK: 0;
-declare const ERR_NOT_OWNER: -1;
-declare const ERR_NO_PATH: -2;
-declare const ERR_NAME_EXISTS: -3;
-declare const ERR_BUSY: -4;
-declare const ERR_NOT_FOUND: -5;
-declare const ERR_NOT_ENOUGH_RESOURCES: -6;
-declare const ERR_NOT_ENOUGH_ENERGY: -6;
-declare const ERR_INVALID_TARGET: -7;
-declare const ERR_FULL: -8;
-declare const ERR_NOT_IN_RANGE: -9;
-declare const ERR_INVALID_ARGS: -10;
-declare const ERR_TIRED: -11;
-declare const ERR_NO_BODYPART: -12;
-declare const ERR_NOT_ENOUGH_EXTENSIONS: -6;
-declare const ERR_RCL_NOT_ENOUGH: -14;
-declare const ERR_GCL_NOT_ENOUGH: -15;
+declare const enum SuccessCode {
+    OK = 0
+}
 
-declare const FIND_EXIT_TOP: 1;
-declare const FIND_EXIT_RIGHT: 3;
-declare const FIND_EXIT_BOTTOM: 5;
-declare const FIND_EXIT_LEFT: 7;
-declare const FIND_EXIT: 10;
-declare const FIND_CREEPS: 101;
-declare const FIND_MY_CREEPS: 102;
-declare const FIND_HOSTILE_CREEPS: 103;
-declare const FIND_SOURCES_ACTIVE: 104;
-declare const FIND_SOURCES: 105;
-declare const FIND_DROPPED_RESOURCES: 106;
-declare const FIND_DROPPED_ENERGY: 106; // Yup, it's 106.
-declare const FIND_STRUCTURES: 107;
-declare const FIND_MY_STRUCTURES: 108;
-declare const FIND_HOSTILE_STRUCTURES: 109;
-declare const FIND_FLAGS: 110;
-declare const FIND_CONSTRUCTION_SITES: 111;
-declare const FIND_MY_SPAWNS: 112;
-declare const FIND_HOSTILE_SPAWNS: 113;
-declare const FIND_MY_CONSTRUCTION_SITES: 114;
-declare const FIND_HOSTILE_CONSTRUCTION_SITES: 115;
-declare const FIND_MINERALS: 116;
-declare const FIND_NUKES: 117;
+declare const enum ErrorCode {
+    ERR_NOT_OWNER = -1,
+    ERR_NO_PATH = -2,
+    ERR_NAME_EXISTS = -3,
+    ERR_BUSY = -4,
+    ERR_NOT_FOUND = -5,
+    ERR_NOT_ENOUGH_RESOURCES = -6,
+    ERR_NOT_ENOUGH_ENERGY = -6,
+    ERR_INVALID_TARGET = -7,
+    ERR_FULL = -8,
+    ERR_NOT_IN_RANGE = -9,
+    ERR_INVALID_ARGS = -10,
+    ERR_TIRED = -11,
+    ERR_NO_BODYPART = -12,
+    ERR_NOT_ENOUGH_EXTENSIONS = -6,
+    ERR_RCL_NOT_ENOUGH = -14,
+    ERR_GCL_NOT_ENOUGH = -15
+}
 
-declare const TOP: 1;
-declare const TOP_RIGHT: 2;
-declare const RIGHT: 3;
-declare const BOTTOM_RIGHT: 4;
-declare const BOTTOM: 5;
-declare const BOTTOM_LEFT: 6;
-declare const LEFT: 7;
-declare const TOP_LEFT: 8;
+declare type ResultCode = SuccessCode | ErrorCode;
 
-declare const COLOR_RED: 1;
-declare const COLOR_PURPLE: 2;
-declare const COLOR_BLUE: 3;
-declare const COLOR_CYAN: 4;
-declare const COLOR_GREEN: 5;
-declare const COLOR_YELLOW: 6;
-declare const COLOR_ORANGE: 7;
-declare const COLOR_BROWN: 8;
-declare const COLOR_GREY: 9;
-declare const COLOR_WHITE: 10;
+declare const enum FindQuery {
+    FIND_EXIT_TOP = 1,
+    FIND_EXIT_RIGHT = 3,
+    FIND_EXIT_BOTTOM = 5,
+    FIND_EXIT_LEFT = 7,
+    FIND_EXIT = 10,
+    FIND_CREEPS = 101,
+    FIND_MY_CREEPS = 102,
+    FIND_HOSTILE_CREEPS = 103,
+    FIND_SOURCES_ACTIVE = 104,
+    FIND_SOURCES = 105,
+    FIND_DROPPED_RESOURCES = 106,
+    FIND_DROPPED_ENERGY = 106, // Yup, it's 106
+    FIND_STRUCTURES = 107,
+    FIND_MY_STRUCTURES = 108,
+    FIND_HOSTILE_STRUCTURES = 109,
+    FIND_FLAGS = 110,
+    FIND_CONSTRUCTION_SITES = 111,
+    FIND_MY_SPAWNS = 112,
+    FIND_HOSTILE_SPAWNS = 113,
+    FIND_MY_CONSTRUCTION_SITES = 114,
+    FIND_HOSTILE_CONSTRUCTION_SITES = 115,
+    FIND_MINERALS = 116,
+    FIND_NUKES = 117,
+}
+
+declare const enum Direction {
+    TOP = 1,
+    TOP_RIGHT = 2,
+    RIGHT = 3,
+    BOTTOM_RIGHT = 4,
+    BOTTOM = 5,
+    BOTTOM_LEFT = 6,
+    LEFT = 7,
+    TOP_LEFT = 8
+}
+
+declare const enum ColorCode {
+    COLOR_RED = 1,
+    COLOR_PURPLE = 2,
+    COLOR_BLUE = 3,
+    COLOR_CYAN = 4,
+    COLOR_GREEN = 5,
+    COLOR_YELLOW = 6,
+    COLOR_ORANGE = 7,
+    COLOR_BROWN = 8,
+    COLOR_GREY = 9,
+    COLOR_WHITE = 10
+}
 declare const COLORS_ALL: number[];
 
 declare const CREEP_SPAWN_TIME: 3;
@@ -156,14 +169,16 @@ declare const HEAL_POWER: 12;
 declare const RANGED_HEAL_POWER: 4;
 declare const DISMANTLE_COST: 0.005;
 
-declare const MOVE: "move";
-declare const WORK: "work";
-declare const CARRY: "carry";
-declare const ATTACK: "attack";
-declare const RANGED_ATTACK: "ranged_attack";
-declare const TOUGH: "tough";
-declare const HEAL: "heal";
-declare const CLAIM: "claim";
+declare const enum BodyPartType {
+    MOVE = "move",
+    WORK = "work",
+    CARRY = "carry",
+    ATTACK = "attack",
+    RANGED_ATTACK = "ranged_attack",
+    TOUGH = "tough",
+    HEAL = "heal",
+    CLAIM = "claim"
+}
 
 declare const CONSTRUCTION_COST: {
     spawn: 15000,
@@ -185,69 +200,73 @@ declare const CONSTRUCTION_COST: {
 
 declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
 
-declare const STRUCTURE_EXTENSION: "extension";
-declare const STRUCTURE_RAMPART: "rampart";
-declare const STRUCTURE_ROAD: "road";
-declare const STRUCTURE_SPAWN: "spawn";
-declare const STRUCTURE_LINK: "link";
-declare const STRUCTURE_WALL: "wall";
-declare const STRUCTURE_KEEPER_LAIR: "keeperLair";
-declare const STRUCTURE_CONTROLLER: "controller";
-declare const STRUCTURE_STORAGE: "storage";
-declare const STRUCTURE_TOWER: "tower";
-declare const STRUCTURE_OBSERVER: "observer";
-declare const STRUCTURE_POWER_BANK: "powerBank";
-declare const STRUCTURE_POWER_SPAWN: "powerSpawn";
-declare const STRUCTURE_EXTRACTOR: "extractor";
-declare const STRUCTURE_LAB: "lab";
-declare const STRUCTURE_TERMINAL: "terminal";
-declare const STRUCTURE_CONTAINER: "container";
-declare const STRUCTURE_NUKER: "nuker";
-declare const STRUCTURE_PORTAL: "portal";
+declare const enum StructureType {
+    STRUCTURE_EXTENSION = "extension",
+    STRUCTURE_RAMPART = "rampart",
+    STRUCTURE_ROAD = "road",
+    STRUCTURE_SPAWN = "spawn",
+    STRUCTURE_LINK = "link",
+    STRUCTURE_WALL = "wall",
+    STRUCTURE_KEEPER_LAIR = "keeperLair",
+    STRUCTURE_CONTROLLER = "controller",
+    STRUCTURE_STORAGE = "storage",
+    STRUCTURE_TOWER = "tower",
+    STRUCTURE_OBSERVER = "observer",
+    STRUCTURE_POWER_BANK = "powerBank",
+    STRUCTURE_POWER_SPAWN = "powerSpawn",
+    STRUCTURE_EXTRACTOR = "extractor",
+    STRUCTURE_LAB = "lab",
+    STRUCTURE_TERMINAL = "terminal",
+    STRUCTURE_CONTAINER = "container",
+    STRUCTURE_NUKER = "nuker",
+    STRUCTURE_PORTAL = "portal"
+}
 
-declare const RESOURCE_ENERGY: "energy";
-declare const RESOURCE_POWER: "power";
-declare const RESOURCE_UTRIUM: "U";
-declare const RESOURCE_LEMERGIUM: "L";
-declare const RESOURCE_KEANIUM: "K";
-declare const RESOURCE_GHODIUM: "G";
-declare const RESOURCE_ZYNTHIUM: "Z";
-declare const RESOURCE_OXYGEN: "O";
-declare const RESOURCE_HYDROGEN: "H";
-declare const RESOURCE_CATALYST: "X";
-declare const RESOURCE_HYDROXIDE: "OH";
-declare const RESOURCE_ZYNTHIUM_KEANITE: "ZK";
-declare const RESOURCE_UTRIUM_LEMERGITE: "UL";
-declare const RESOURCE_UTRIUM_HYDRIDE: "UH";
-declare const RESOURCE_UTRIUM_OXIDE: "UO";
-declare const RESOURCE_KEANIUM_HYDRIDE: "KH";
-declare const RESOURCE_KEANIUM_OXIDE: "KO";
-declare const RESOURCE_LEMERGIUM_HYDRIDE: "LH";
-declare const RESOURCE_LEMERGIUM_OXIDE: "LO";
-declare const RESOURCE_ZYNTHIUM_HYDRIDE: "ZH";
-declare const RESOURCE_ZYNTHIUM_OXIDE: "ZO";
-declare const RESOURCE_GHODIUM_HYDRIDE: "GH";
-declare const RESOURCE_GHODIUM_OXIDE: "GO";
-declare const RESOURCE_UTRIUM_ACID: "UH2O";
-declare const RESOURCE_UTRIUM_ALKALIDE: "UHO2";
-declare const RESOURCE_KEANIUM_ACID: "KH2O";
-declare const RESOURCE_KEANIUM_ALKALIDE: "KHO2";
-declare const RESOURCE_LEMERGIUM_ACID: "LH2O";
-declare const RESOURCE_LEMERGIUM_ALKALIDE: "LHO2";
-declare const RESOURCE_ZYNTHIUM_ACID: "ZH2O";
-declare const RESOURCE_ZYNTHIUM_ALKALIDE: "ZHO2";
-declare const RESOURCE_GHODIUM_ACID: "GH2O";
-declare const RESOURCE_GHODIUM_ALKALIDE: "GHO2";
-declare const RESOURCE_CATALYZED_UTRIUM_ACID: "XUH2O";
-declare const RESOURCE_CATALYZED_UTRIUM_ALKALIDE: "XUHO2";
-declare const RESOURCE_CATALYZED_KEANIUM_ACID: "XKH2O";
-declare const RESOURCE_CATALYZED_KEANIUM_ALKALIDE: "XKHO2";
-declare const RESOURCE_CATALYZED_LEMERGIUM_ACID: "XLH2O";
-declare const RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE: "XLHO2";
-declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: "XZH2O";
-declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "ZXHO2";
-declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
-declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
+declare const enum ResourceType {
+    RESOURCE_ENERGY = "energy",
+    RESOURCE_POWER = "power",
+    RESOURCE_UTRIUM = "U",
+    RESOURCE_LEMERGIUM = "L",
+    RESOURCE_KEANIUM = "K",
+    RESOURCE_GHODIUM = "G",
+    RESOURCE_ZYNTHIUM = "Z",
+    RESOURCE_OXYGEN = "O",
+    RESOURCE_HYDROGEN = "H",
+    RESOURCE_CATALYST = "X",
+    RESOURCE_HYDROXIDE = "OH",
+    RESOURCE_ZYNTHIUM_KEANITE = "ZK",
+    RESOURCE_UTRIUM_LEMERGITE = "UL",
+    RESOURCE_UTRIUM_HYDRIDE = "UH",
+    RESOURCE_UTRIUM_OXIDE = "UO",
+    RESOURCE_KEANIUM_HYDRIDE = "KH",
+    RESOURCE_KEANIUM_OXIDE = "KO",
+    RESOURCE_LEMERGIUM_HYDRIDE = "LH",
+    RESOURCE_LEMERGIUM_OXIDE = "LO",
+    RESOURCE_ZYNTHIUM_HYDRIDE = "ZH",
+    RESOURCE_ZYNTHIUM_OXIDE = "ZO",
+    RESOURCE_GHODIUM_HYDRIDE = "GH",
+    RESOURCE_GHODIUM_OXIDE = "GO",
+    RESOURCE_UTRIUM_ACID = "UH2O",
+    RESOURCE_UTRIUM_ALKALIDE = "UHO2",
+    RESOURCE_KEANIUM_ACID = "KH2O",
+    RESOURCE_KEANIUM_ALKALIDE = "KHO2",
+    RESOURCE_LEMERGIUM_ACID = "LH2O",
+    RESOURCE_LEMERGIUM_ALKALIDE = "LHO2",
+    RESOURCE_ZYNTHIUM_ACID = "ZH2O",
+    RESOURCE_ZYNTHIUM_ALKALIDE = "ZHO2",
+    RESOURCE_GHODIUM_ACID = "GH2O",
+    RESOURCE_GHODIUM_ALKALIDE = "GHO2",
+    RESOURCE_CATALYZED_UTRIUM_ACID = "XUH2O",
+    RESOURCE_CATALYZED_UTRIUM_ALKALIDE = "XUHO2",
+    RESOURCE_CATALYZED_KEANIUM_ACID = "XKH2O",
+    RESOURCE_CATALYZED_KEANIUM_ALKALIDE = "XKHO2",
+    RESOURCE_CATALYZED_LEMERGIUM_ACID = "XLH2O",
+    RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE = "XLHO2",
+    RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O",
+    RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "ZXHO2",
+    RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O",
+    RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2"
+}
 declare const RESOURCES_ALL: string[];
 
 declare const SUBSCRIPTION_TOKEN: string;
@@ -382,16 +401,20 @@ declare const BOOSTS: {
     }
 }
 
-declare const LOOK_CREEPS: "creep";
-declare const LOOK_ENERGY: "energy";
-declare const LOOK_RESOURCES: "resource";
-declare const LOOK_SOURCES: "source";
-declare const LOOK_MINERALS: "mineral";
-declare const LOOK_STRUCTURES: "structure";
-declare const LOOK_FLAGS: "flag";
-declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
-declare const LOOK_NUKES: "nuke";
-declare const LOOK_TERRAIN: "terrain";
+declare const enum LookQuery {
+    LOOK_CREEPS = "creep",
+    LOOK_ENERGY = "energy",
+    LOOK_RESOURCES = "resource",
+    LOOK_SOURCES = "source",
+    LOOK_MINERALS = "mineral",
+    LOOK_STRUCTURES = "structure",
+    LOOK_FLAGS = "flag",
+    LOOK_CONSTRUCTION_SITES = "constructionSite",
+    LOOK_NUKES = "nuke",
+    LOOK_TERRAIN = "terrain"
+}
 
-declare const ORDER_SELL: "sell";
-declare const ORDER_BUY: "buy";
+declare const enum OrderType {
+    ORDER_SELL = "sell",
+    ORDER_BUY = "buy"
+}
