@@ -4,7 +4,7 @@
 
 interface Resource extends RoomObject {
     readonly prototype: Resource;
-    
+
     /**
      * The amount of resource units containing.
      */

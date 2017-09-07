@@ -18,7 +18,7 @@ declare class RoomVisual {
      * @returns The RoomVisual object, for chaining.
      */
     line(x1: number, y1: number, x2: number, y2: number, style?: LineStyle): RoomVisual;
-    
+
     /**
      * Draw a line.
      * @param pos1 The start position object.

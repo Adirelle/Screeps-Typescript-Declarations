@@ -60,7 +60,7 @@ interface GameMap {
      * @param pos The position object.
      */
     getTerrainAt(pos: RoomPosition): string;
-    
+
     /**
      * Check if the room is available to move into.
      * @param roomName The room name.

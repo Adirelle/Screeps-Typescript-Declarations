@@ -3,6 +3,7 @@
  */
 interface ConstructionSite extends RoomObject {
     readonly prototype: ConstructionSite;
+
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */

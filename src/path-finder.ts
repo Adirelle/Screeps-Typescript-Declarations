@@ -1,5 +1,5 @@
 /**
- * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms. 
+ * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms.
  * Additionally PathFinder can search for paths through rooms you can't see, although you won't be able to detect any dynamic obstacles like creeps or buildings.
  */
 interface PathFinder {
