@@ -2,7 +2,7 @@
 /**
  * Creeps are your units. Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions. Each creep consists of up to 50 body parts with the following possible types:
  */
-interface Creep extends RoomObject {
+interface Creep extends RoomObject, HitPoints {
     readonly prototype: Creep;
     
     /**
@@ -27,14 +27,6 @@ interface Creep extends RoomObject {
      * The movement fatigue indicator. If it is greater than zero, the creep cannot move.
      */
     fatigue: number;
-    /**
-     * The current amount of hit points of the creep.
-     */
-    hits: number;
-    /**
-     * The maximum amount of hit points of the creep.
-     */
-    hitsMax: number;
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */

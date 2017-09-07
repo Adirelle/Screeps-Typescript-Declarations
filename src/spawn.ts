@@ -2,16 +2,8 @@
 /**
  * Spawns are your colony centers. You can transfer energy into it and create new creeps using createCreep() method.
  */
-interface StructureSpawn extends OwnedStructure {
+interface StructureSpawn extends OwnedStructure, EnergyContainer {
     readonly prototype: StructureSpawn;
-    /**
-     * The amount of energy containing in the spawn.
-     */
-    energy: number;
-    /**
-     * The total amount of energy the spawn can contain
-     */
-    energyCapacity: number;
     /**
      * A shorthand to Memory.spawns[spawn.name]. You can use it for quick access the spawn’s specific memory data object.
      */
