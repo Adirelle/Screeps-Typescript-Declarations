@@ -78,7 +78,7 @@ interface RoomPosition {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more details).
      */
-    findPathTo(target: RoomPosition | { pos: RoomPosition }, opts?: FindPathOpts): PathStep[];
+    findPathTo(target: TargetPosition, opts?: FindPathOpts): PathStep[];
     /**
      * Get linear direction to the specified position.
      * @param x X position in the room.
@@ -89,7 +89,7 @@ interface RoomPosition {
      * Get linear direction to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    getDirectionTo(target: RoomPosition | { pos: RoomPosition }): Direction;
+    getDirectionTo(target: TargetPosition): Direction;
     /**
      * Get linear range to the specified position.
      * @param x X position in the room.
@@ -100,13 +100,13 @@ interface RoomPosition {
      * Get linear range to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    getRangeTo(target: RoomPosition | { pos: RoomPosition }): number;
+    getRangeTo(target: TargetPosition): number;
     /**
      * Check whether this position is in the given range of another position.
      * @param toPos The target position.
      * @param range The range distance.
      */
-    inRangeTo(target: RoomPosition|{pos: RoomPosition}, range: number): boolean;
+    inRangeTo(target: TargetPosition, range: number): boolean;
     /**
      * Check whether this position is the same as the specified position.
      * @param x X position in the room.
@@ -117,7 +117,7 @@ interface RoomPosition {
      * Check whether this position is the same as the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    isEqualTo(target: RoomPosition | { pos: RoomPosition }): boolean;
+    isEqualTo(target: TargetPosition): boolean;
     /**
      * Check whether this position is on the adjacent square to the specified position. The same as inRangeTo(target, 1).
      * @param x X position in the room.
@@ -128,7 +128,7 @@ interface RoomPosition {
      * Check whether this position is on the adjacent square to the specified position. The same as inRangeTo(target, 1).
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    isNearTo(target: RoomPosition | { pos: RoomPosition }): boolean;
+    isNearTo(target: TargetPosition): boolean;
     /**
      * Get the list of objects at the specified room position.
      */

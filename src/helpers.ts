@@ -219,3 +219,5 @@ interface _ConstructorById<T> extends _Constructor<T> {
 }
 
 type Filter<T> = ((t: T) => boolean) | Partial<T> | string | any;
+
+type TargetPosition = RoomPosition | { pos: RoomPosition };

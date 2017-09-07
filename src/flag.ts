@@ -44,7 +44,7 @@ interface Flag extends RoomObject {
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
      * @returns Result Code: OK, ERR_INVALID_TARGET
      */
-    setPosition(pos: RoomPosition|{pos: RoomPosition}): ResultCode;
+    setPosition(pos: TargetPosition): ResultCode;
 }
 
 interface FlagConstructor extends _Constructor<Flag> {

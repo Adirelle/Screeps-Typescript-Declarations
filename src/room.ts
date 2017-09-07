@@ -55,7 +55,7 @@ interface Room {
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(pos: RoomPosition | { pos: RoomPosition }, structureType: StructureType): ResultCode;
+    createConstructionSite(pos: TargetPosition, structureType: StructureType): ResultCode;
     /**
      * Create new Flag at the specified location.
      * @param x The X position.
@@ -72,7 +72,7 @@ interface Room {
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(pos: RoomPosition | { pos: RoomPosition }, name?: string, color?: ColorCode, secondaryColor?: ColorCode): ResultCode;
+    createFlag(pos: TargetPosition, name?: string, color?: ColorCode, secondaryColor?: ColorCode): ResultCode;
     /**
      * Find all objects of the specified type in the room.
      * @param type One of the following constants:FIND_CREEPS, FIND_MY_CREEPS, FIND_HOSTILE_CREEPS, FIND_MY_SPAWNS, FIND_HOSTILE_SPAWNS, FIND_SOURCES, FIND_SOURCES_ACTIVE, FIND_DROPPED_RESOURCES, FIND_DROPPED_ENERGY, FIND_STRUCTURES, FIND_MY_STRUCTURES, FIND_HOSTILE_STRUCTURES, FIND_FLAGS, FIND_CONSTRUCTION_SITES, FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT, FIND_EXIT
@@ -114,7 +114,7 @@ interface Room {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array with objects at the specified position
      */
-    lookAt(target: RoomPosition | { pos: RoomPosition }): LookAtResult[];
+    lookAt(target: TargetPosition): LookAtResult[];
     /**
      * Get the list of objects at the specified room area. This method is more CPU efficient in comparison to multiple lookAt calls.
      * @param top The top Y boundary of the area.
@@ -139,7 +139,7 @@ interface Room {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array of objects of the given type at the specified position if found.
      */
-    lookForAt<T>(type: LookQuery, target: RoomPosition | { pos: RoomPosition }): T[];
+    lookForAt<T>(type: LookQuery, target: TargetPosition): T[];
     /**
      * Get the list of objects with the given type at the specified room area. This method is more CPU efficient in comparison to multiple lookForAt calls.
      * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain

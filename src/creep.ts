@@ -153,7 +153,7 @@ interface Creep extends RoomObject {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
      */
-    moveTo(target: RoomPosition|{pos: RoomPosition}, opts?: MoveToOpts): ResultCode;
+    moveTo(target: TargetPosition, opts?: MoveToOpts): ResultCode;
     /**
      * Toggle auto notification when the creep is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
