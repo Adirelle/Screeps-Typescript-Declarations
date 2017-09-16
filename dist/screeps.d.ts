@@ -1004,37 +1004,45 @@ interface LookAtResultMatrix {
 }
 interface FindPathOpts {
     /**
-     * Request from the pathfinder to generate a CostMatrix for a certain room. The callback accepts one argument, roomName. This callback will only be called once per room per search. If you are running multiple pathfinding operations in a single room and in a single tick you may consider caching your CostMatrix to speed up your code. Please read the CostMatrix documentation below for more information on CostMatrix. If you return false from the callback the requested room will not be searched, and it won't count against maxRooms
+     * Treat squares with creeps as walkable. Can be useful with too many moving creeps around or in some other cases. The default value is false.
      */
-    roomCallback?: ((roomName: string) => PathFinder['CostMatrix'] | boolean);
+    ignoreCreeps?: boolean;
     /**
-     * Cost for walking on plain positions. The default is 1.
+     * Treat squares with destructible structures (constructed walls, ramparts, spawns, extensions) as walkable. The default value is false.
      */
-    plainCost: number;
+    ignoreDestructibleStructures?: boolean;
     /**
-     * Cost for walking on swamp positions. The default is 5.
+     * Ignore road structures. Enabling this option can speed up the search. The default value is false. This is only used when the new PathFinder is enabled.
      */
-    swampCost: number;
+    ignoreRoads?: boolean;
     /**
-     * Instead of searching for a path to the goals this will search for a path away from the goals. The cheapest path that is out of range of every goal will be returned. The default is false.
+     * You can use this callback to modify a CostMatrix for any room during the search. The callback accepts two arguments, roomName and costMatrix. Use the costMatrix instance to make changes to the positions costs. If you return a new matrix from this callback, it will be used instead of the built-in cached one. This option is only used when the new PathFinder is enabled.
      */
-    flee: boolean;
+    costCallback?: (roomName: string, costMatrix: CostMatrix) => CostMatrix;
     /**
-     * The maximum allowed pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU. The default value is 2000.
+     * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option cannot be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    maxOps: number;
+    ignore?: Array<RoomPosition | RoomObject>;
     /**
-     * The maximum allowed rooms to search. The default (and maximum) is 16.
+     * An array of the room's objects or RoomPosition objects which should be treated as obstacles during the search. This option cannot be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    maxRooms: number;
-    maxCost: number;
+    avoid?: Array<RoomPosition | RoomObject>;
     /**
-     * The maximum allowed cost of the path returned. If at any point the pathfinder detects that it is impossible to find a path with a cost less than or equal to maxCost it will immediately halt the search. The default is Infinity.
+     * The maximum limit of possible pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU. The default value is 2000.
      */
+    maxOps?: number;
     /**
-     * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand the underlying A* algorithm mechanics! The default value is 1.2.
+     * Weight to apply to the heuristic in the A formula F = G + weight H. Use this option only if you understand the underlying A* algorithm mechanics! The default value is 1.2.
      */
-    heuristicWeight: number;
+    heuristicWeight?: number;
+    /**
+     * If true, the result path will be serialized using Room.serializePath. The default is false.
+     */
+    serialize?: boolean;
+    /**
+     * The maximum allowed rooms to search. The default (and maximum) is 16. This is only used when the new PathFinder is enabled.
+     */
+    maxRooms?: number;
 }
 interface MoveToOpts extends FindPathOpts {
     /**
@@ -1409,6 +1417,10 @@ interface PathFinderPath {
  */
 interface PathFinderOpts {
     /**
+     * Request from the pathfinder to generate a CostMatrix for a certain room. The callback accepts one argument, roomName. This callback will only be called once per room per search. If you are running multiple pathfinding operations in a single room and in a single tick you may consider caching your CostMatrix to speed up your code. Please read the CostMatrix documentation below for more information on CostMatrix. If you return false from the callback the requested room will not be searched, and it won't count against maxRooms
+     */
+    roomCallback?: (roomName: string) => CostMatrix | boolean;
+    /**
      * Cost for walking on plain positions. The default is 1.
      */
     plainCost?: number;
@@ -1417,8 +1429,7 @@ interface PathFinderOpts {
      */
     swampCost?: number;
     /**
-     * Instead of searching for a path to the goals this will search for a path away from the goals.
-     * The cheapest path that is out of range of every goal will be returned. The default is false.
+     * Instead of searching for a path to the goals this will search for a path away from the goals. The cheapest path that is out of range of every goal will be returned. The default is false.
      */
     flee?: boolean;
     /**
@@ -1430,19 +1441,13 @@ interface PathFinderOpts {
      */
     maxRooms?: number;
     /**
-     * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand
-     * the underlying A* algorithm mechanics! The default value is 1.
+     * The maximum allowed cost of the path returned. If at any point the pathfinder detects that it is impossible to find a path with a cost less than or equal to maxCost it will immediately halt the search. The default is Infinity.
+     */
+    maxCost?: number;
+    /**
+     * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand the underlying A* algorithm mechanics! The default value is 1.2.
      */
     heuristicWeight?: number;
-    /**
-     * Request from the pathfinder to generate a CostMatrix for a certain room. The callback accepts one argument, roomName.
-     * This callback will only be called once per room per search. If you are running multiple pathfinding operations in a
-     * single room and in a single tick you may consider caching your CostMatrix to speed up your code. Please read the
-     * CostMatrix documentation below for more information on CostMatrix.
-     *
-     * @param roomName
-     */
-    roomCallback?(roomName: string): boolean | CostMatrix;
 }
 /**
  * Container for custom navigation cost data.
